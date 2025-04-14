@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- arquivo .css utilizado contendo o estilo utilizado -->
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Projeto</title>
+</head>
+
+<body>
+     <!-- Cabeçalho de informações do sistema -->
+    <header>
+        <div class="title">
+             <div class="tituloPagina">
+                <mark><h2 >Enriquecimento de Dados de Veículo e Localização com uso de Inteligência Artificial (OpenAI) </h2></mark>
+            </div>                     
+        </div>
+        <div class="banner">
+                    <img src="img/pexels-pixabay-104836.jpg"
+                alt="y">
+        </div>
+    </header>
+    <!-- Criação de uma div maior com duas outras lado a lado no interior representando áreas para imput de dados e output( apresentação) dos dados, respectivamente  -->    
+    <div class="retangulo"  >    
+       <div class="inputs"  >
+        <!-- Área de inserção de uma novo automóvel -->   
+
+        <!-- Título -->   
+        <mark><h4 style="text-align:center;width:100%;margin-top:05px;">Informações do Automóvel:</h4></mark>
+            <!-- Informações sobre a busca de um modelo de automóvel -->
+             <!-- nome do modelo de automóvel -->
+            
+            
+            <label for="categoria" class="label1"> Categoria:  
+                <select name="categoria" id="categoria-select">
+                    <option value="">--Selecione uma categoria--</option>
+                    <option value="Carros">Carros</option>
+                    <option value="Motos">Motos</option>
+                    <option value="Caminhões">Caminhões</option>
+                    <option value="Ônibus">Ônibus</option>
+                </select>
+            </label>
+        
+            <label for="marca" class="label1" > Marca:  
+                <select name="marca" id="marca-select">
+                    <option value="">--Selecione uma marca--</option>
+                    <option value="BMW">BMW</option>
+                    <option value="Chevrolet">Chevrolet</option>
+                    <option value="Fiat">Fiat</option>
+                    <option value="Ford">Ford</option>
+                    <option value="Honda">Honda</option>
+                    <option value="Renault">Renault</option>
+                    <option value="Toyota">Toyota</option>
+                    <option value="VolksWagen">VolksWagen</option>                     
+                </select>
+            </label>
+            
+            <label for="tipoVeiculos" class="label1" > Tipo:
+                <select name="tipoVeiculos" id="tipoVeiculos-select">
+                    <option value="">--Tipo de Veículo--</option>
+                    <option value="Hatch">Hatch</option>
+                    <option value="Sedã">Sedã</option>
+                    <option value="Suv">Suv</option>
+                    <option value="Pick-Up">Pick-Up</option>
+                    <option value="Conversível">Conversível</option>
+                    <option value="Caminhão Leve">Caminhão Leve</option>
+                    <option value="Caminhão Pesado">Caminhão Pesado</option>
+                    <option value="Motocicleta">Motocicleta</option>                    
+                    <option value="Triciclo">Tricilo</option>                    
+                </select>
+            </label>
+            
+            <label for="tipoCambio" class="label1"> Câmbio:  
+                <select name="tipoCambio" id="tipoCambio-select">
+                    <option value="">--Tipo de Câmbio--</option>
+                    <option value="Manual">Manual</option>
+                    <option value="Automático">Automático</option>                    
+                    <option value="Semi-Automático">Semi-Automático</option>
+                    <option value="Automatizado">Automatizado</option>                    
+                </select>
+            </label>
+            <!-- nome do modelo de automóvel -->
+            <label for="modelo" class="label1"> Modelo:  
+                <input type="text" id="modelo" name="modelo" maxlength="30" size="30" />
+            </label>
+            <!-- parâmetros numéricoas de busca pelo modelo de automóvel -->
+            <label for="anoDesde" class="label1"> Ano:
+                <input type="text" id="anoDesde" name="anoDesde" required minlength= "4" maxlength="4" size="4" min="1900" max="2025" />
+            </label>
+            
+             <!---------->
+             <!-- Chamada à API EXTERNA CONSULTA CEP  -->   
+            
+        <div class="Cep_Pesquisa">
+            <h5 style="text-align:center;width:100%;margin-top:03px;">Busca Região do Automóvel por Cep</h5>
+
+            <div class="Cep_Pesquisa_dados">
+                <label for="Cep_Interessado1" class="Cep_label1">Cep:   </label>  
+                    <input type="text" id="Cep_Interessado" name="Cep_Interessado" maxlength="10" size="10" />  
+               
+                <button onclick="getRegiaoCep()" id="ConsultaCep" class="ConsultaCep">Buscar</button>
+                <input type="hidden" id="Regiao_Armazenar" name="Regiao_Armazenar" value=""/>
+                        
+            </div>
+            <div class="Cep_Regiao">
+                <br>
+                <section id="regiao">
+                </section>
+            </div>
+            
+        </div>
+    </div>
+            
+        <!-- Chamada à API para inserção de um novo Item -->           
+       
+    
+    <div class="pesquisaAI">
+        <mark><h4 style="text-align:center;width:100%;margin-top:5px;">Buscar Informações adicionais na API da OPENAI </h4></mark>  
+
+        <div class="pesquisaAI_areaTrab">
+
+
+            <div class="DivAutomovelInf">
+
+
+                            <div class="DivClass_DiferencialAuto">
+
+                                <label for="gpt_DiferencialAuto" class="gpt_DiferencialAuto">Características marcantes deste Automóvel   
+                                    <button onclick="getGPT_DiferencialAuto()" id="DiferencialAuto" class="DiferencialAuto">Buscar</button>
+                                </label>
+                                <textarea  id="aiInfoDif_Auto" name="aiInfoDif_Auto" rows= 3 cols= 1></textarea>    
+                            </div>
+
+                            <div class="DivClass_ValorMedioAuto">
+
+                                <label for="gpt_ValorMedioAuto" class="gpt_ValorMedioAuto">Valor médio do Automóvel na região  
+                                    <button onclick="getGPT_ValorMedioAuto()" id="ValorMedioAuto" class="ValorMedioAuto">Buscar</button>       
+                                </label>                             
+                                    <textarea  id="aiValorMedioAuto" name="aiValorMedioAuto" rows= 1 cols= 1></textarea>    
+                            </div>
+
+                            <div class="DivClass_ValorSeguroAutoRegiao">
+                                
+                                <label for="gpt_ValorSeguroAutoRegiao" class="gpt_ValorSeguroAutoRegiao">Valor médio do seguro anual na região  
+                                    <button onclick="getGPT_ValorSeguroAutoRegiao()" id="ValorSeguroAutoRegiao" class="ValorSeguroAutoRegiao">Buscar</button>
+                                </label>
+                                <textarea  id="aiValorSeguroAutoRegiao" name="aiValorSeguroAutoRegiao" rows= 1 cols= 1></textarea>    
+                            </div>
+            </div>
+
+            <div class="DivRegiaolInf">
+
+                            <div class="DivClass_InformacaoRegiaoCep">
+                            
+                                <label for="gpt_InformacaoRegiaoCep" class="gpt_InfoRegiaoCep">Informações complementares sobre a região identificada 
+                                    <button onclick="getGPT_InformacaoRegiaoCep()" id="InfoRegiaoCep" class="InfoRegiaoCep">Buscar</button>
+                                </label>
+                                <textarea  id="aiInfoRegiaoCep" name="aiInfoRegiaoCep" rows= 3 cols= 1></textarea>    
+                            </div>
+            </div>
+
+
+
+           
+        </div>   
+           
+        
+   
+    </div>   
+   
+
+</div>
+<div class="Salvar">
+    <input type="hidden" id="status_operacao" name="status_operacao" value=""/>
+    <button onclick="newItem()" class="addBtn">Armazenar na Base de Dados</button>           
+    <button onclick="limparInputs()" class="btlimparInputs">Limpar campos</button>     
+</div>    
+ <!-- Div, representando contemplando as informações de saída, contendo um grid de retorno e campos de busca por nome  --> 
+ <div class="outputs">       
+ <section class="items">
+   
+      
+         <!-- Captura o nome do modelo desejado para pesquisa por um modelo específico. Usa o metodo get único --> 
+         <h5 style="text-align:left;position: relative; left:10px; width:100%;margin-top:5px;">Pesquise o Automóvel por Modelo ou liste todos
+
+                <input type="text" id="consultaModelo" name="consultaModelo"  maxlength="30" size="30" />
+                <button onclick="getModelo()" id="btconsultaModelo" class="ConsultaDados"> Pesquisar</button>
+                <!-- Botão para retornar todos os dados do database a partir do método getlist. --> 
+                <button onclick="getList()" id="btconsultaModelo" class="ConsultaDadosCompleto"> Todos</button>      
+        </h5>
+   
+            <!-- Montagem da grade a partir de uma table. --> 
+            <table id="myTable">
+                <tr>
+                    <th>Modelo</th>
+                    <th>Marca</th>                    
+                    <th>Categoria</th>
+                    <th>Tipo</th>
+                    <th>Câmbio</th>
+                    <th>Região</th>         
+                    <th>Ano desde</th>
+                    <th><img src="https://cdn-icons-png.flaticon.com/512/126/126468.png" width="15px" height="15px"></th>    
+                    <th><img src="img/pesquisa.png" width="15px" height="15px"></th>
+                   
+                  
+                </tr>
+        </table>
+     
+ </section>
+</div>
+
+
+
+<!-- script utilizado contendo a lógica de programação javascript utilizada. -->    
+    <script src="scripts.js"></script>
+</body>
+
+</html>
+
+
